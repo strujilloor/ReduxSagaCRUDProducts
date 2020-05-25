@@ -1,6 +1,7 @@
 # CRUD PRODUCTS APP
 
 ![Products Page](https://res.cloudinary.com/dzhj8ymvz/image/upload/v1590374682/crudreduxsaga_bmf5gp.png "Products Page")
+___
 
 ![Add Product Page](https://res.cloudinary.com/dzhj8ymvz/image/upload/v1590374682/crudreduxsaga2_rssbgw.png "Add Product Page")
 
