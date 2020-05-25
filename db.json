@@ -1,0 +1,34 @@
+{
+  "productos": [
+    {
+      "name": "Jugo de Zanahoria",
+      "price": 3200,
+      "id": 1
+    },
+    {
+      "name": "Jugo de Naranja",
+      "price": 5000,
+      "id": 2
+    },
+    {
+      "name": "Rib Eye 800g",
+      "price": 800,
+      "id": 4
+    },
+    {
+      "name": "Jugo de Fresa",
+      "price": 7000,
+      "id": 5
+    },
+    {
+      "name": "Jugo de Banano",
+      "price": 3500,
+      "id": 6
+    },
+    {
+      "name": "Jugo de Piña",
+      "price": 2500,
+      "id": 7
+    }
+  ]
+}
