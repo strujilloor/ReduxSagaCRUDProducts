@@ -3,7 +3,7 @@ import Product from '../components/Product';
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux'
-import { descargarProductos } from '../actions/productoActions';
+import { downloadProducts } from '../actions/productActions';
 
 const Products = () => {
 
@@ -12,16 +12,16 @@ const Products = () => {
     useEffect(() => {
         
         // Consultar la API
-        const cargarProductos = () => dispatch( descargarProductos() );
-        cargarProductos();
+        const loadProducts = () => dispatch( downloadProducts() );
+        loadProducts();
 
         // eslint-disable-next-line
     }, [])
 
     // Obtener el State
-    const productos = useSelector( ( state ) => state.productos.productos );
-    const error = useSelector( ( state ) => state.productos.error );
-    const cargando = useSelector( ( state ) => state.productos.loading );
+    const products = useSelector( ( state ) => state.products.products );
+    const error = useSelector( ( state ) => state.products.error );
+    const loading = useSelector( ( state ) => state.products.loading );
 
     return (
         <Fragment>
@@ -30,7 +30,7 @@ const Products = () => {
             </h2>
 
             { error ? <p className="font-weight-bold alert alert-danger text-center mt-4">Hubo un error</p> : null }
-            { cargando ? <p className="text-center">Cargando...</p> : null }
+            { loading ? <p className="text-center">Cargando...</p> : null }
 
             <table className="table table-striped">
                 <thead className="bg-primary table-dark">
@@ -42,11 +42,11 @@ const Products = () => {
                 </thead>
 
                 <tbody>
-                    { productos.length === 0 ? <tr><td>No hay productos</td><td></td><td></td></tr> : (
-                        productos.map( producto => (
+                    { products.length === 0 ? <tr><td>No hay productos</td><td></td><td></td></tr> : (
+                        products.map( product => (
                             <Product
-                                key={ producto.id }
-                                product={ producto }
+                                key={ product.id }
+                                product={ product }
                             />
                         ))
                     )}

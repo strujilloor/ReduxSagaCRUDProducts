@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 
 // Actions de Redux
-import { agregarProducto } from '../actions/productoActions';
-import { mostrarAlerta, ocultarAlerta } from '../actions/alertaActions';
+import { addProduct } from '../actions/productActions';
+import { showAlert, hideAlert } from '../actions/alertActions';
 
-// Animate.style
+// Animate.css
 import 'animate.css/animate.min.css'
 
 const NewProduct = ({ history }) => {
@@ -18,32 +18,32 @@ const NewProduct = ({ history }) => {
     const dispatch = useDispatch();
 
     // Acceder al State del Store
-    const cargando = useSelector( state => state.productos.loading );
-    const error = useSelector( state => state.productos.error );
-    const alert = useSelector( state => state.alerta.alerta );
+    const loading = useSelector( state => state.products.loading );
+    const error = useSelector( state => state.products.error );
+    const alert = useSelector( state => state.alert.alert );
 
     // mandar llamar el action de productoAction
-    const addProduct = ( product ) => dispatch( agregarProducto( product, history ) );
+    const addNewProduct = ( product ) => dispatch( addProduct( product, history ) );
 
     // Cuando el usuario haga submit
-    const submitNuevoProducto = ( event ) => {
+    const submitNewProduct = ( event ) => {
         event.preventDefault();
 
         // Validar formulario
         if ( name.trim() === '' || price <= 0 || isNaN( price ) ) {
-            const respuesta = {
+            const response = {
                 msg: 'Ambos campos son obligatorios',
                 classes: 'alert alert-danger text-center text-uppercase'
             };
-            dispatch( mostrarAlerta( respuesta ) );
+            dispatch( showAlert( response ) );
             return;
         }
 
         // Si no hay errores
-        dispatch( ocultarAlerta() );
+        dispatch( hideAlert() );
 
         // Crear el nuevo producto
-        addProduct({
+        addNewProduct({
             name,
             price
         });
@@ -61,9 +61,9 @@ const NewProduct = ({ history }) => {
                             Agregar Producto
                         </h2>
 
-                        { alert ? <p className={ `animate__animated animate__headShake ${alert.classes}` }>{ alert.msg }</p> : null }
+                        { alert ? <p className={ `animate__animated animate__headShake ${ alert.classes }` }>{ alert.msg }</p> : null }
 
-                        <form onSubmit={ submitNuevoProducto }>
+                        <form onSubmit={ submitNewProduct }>
                             <div className="form-group">
                                 <label htmlFor="name">Nombre Producto</label>
                                 <input 
@@ -92,7 +92,7 @@ const NewProduct = ({ history }) => {
                                 type="submit"
                                 className="btn btn-primary font-weight-bold text-uppercase d-block w-100"
                             >
-                                { cargando 
+                                { loading 
                                 ?
                                     <>
                                     <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -104,7 +104,7 @@ const NewProduct = ({ history }) => {
                             </button>
                         </form>
 
-                        { cargando ? <p>Cargando...</p> : null }
+                        { loading ? <p>Cargando...</p> : null }
 
                         { error ? <p className="alert alert-danger p2 mt-4 text-center">Hubo un error</p> : null }
                     </div>

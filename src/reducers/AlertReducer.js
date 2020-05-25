@@ -1,24 +1,24 @@
 import {
-    MOSTRAR_ALERTA,
-    OCULTAR_ALERTA
+    SHOW_ALERT,
+    HIDE_ALERT
 } from '../types';
 
 // Cada reducer tiene su propio State
 const initialState = {
-    alerta: null
+    alert: null
 };
 
 export default function ( state = initialState, action ) {
     switch( action.type ) {
-        case MOSTRAR_ALERTA:
+        case SHOW_ALERT:
             return {
                 ...state,
-                alerta: action.payload
+                alert: action.payload
             };
-        case OCULTAR_ALERTA:
+        case HIDE_ALERT:
             return {
                 ...state,
-                alerta: null
+                alert: null
             };
         default: 
             return state;

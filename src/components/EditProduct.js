@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { editarProducto } from '../actions/productoActions';
-import { mostrarAlerta, ocultarAlerta } from '../actions/alertaActions';
+import { editProduct } from '../actions/productActions';
+import { showAlert, hideAlert } from '../actions/alertActions';
 import { useHistory } from 'react-router-dom'
 
 const EditProduct = () => {
@@ -10,21 +10,21 @@ const EditProduct = () => {
     const dispatch = useDispatch();
 
     // Nuevo State de producto
-    const [ producto, guardarProducto ] = useState({
+    const [ product, saveProduct ] = useState({
         name: '',
         price: ''
     });
-    const { name, price } = producto;
+    const { name, price } = product;
     
     // producto a editar
-    const productFromState = useSelector( state => state.productos.productoEditar );
+    const productFromState = useSelector( state => state.products.productEdit );
 
-    const alert = useSelector( state => state.alerta.alerta );
+    const alert = useSelector( state => state.alert.alert );
     
     // Llenar el State automáticamente
     useEffect( () => {
         if (productFromState) {
-            guardarProducto( productFromState );
+            saveProduct( productFromState );
         }
     }, [productFromState] );
     
@@ -35,26 +35,26 @@ const EditProduct = () => {
             ? parseInt( event.target.value ) 
             : event.target.value;
 
-        guardarProducto({
-            ...producto,
+        saveProduct({
+            ...product,
             [event.target.name]: value
         });
     }
     
-    const submitEditarProducto = ( event ) => {
+    const submitEditProduct = ( event ) => {
         event.preventDefault();
 
         // Validar formulario
         if ( name.trim() === '' || price <= 0 || isNaN( price ) ) {
-            const respuesta = {
+            const response = {
                 msg: 'Ambos campos son obligatorios',
                 classes: 'alert alert-danger text-center text-uppercase'
             };
-            dispatch( mostrarAlerta( respuesta ) );
+            dispatch( showAlert( response ) );
             return;
         }
-        dispatch( ocultarAlerta() );
-        dispatch( editarProducto( producto, history ) );
+        dispatch( hideAlert() );
+        dispatch( editProduct( product, history ) );
     }
     
     if ( !productFromState ) return null; // cuando no venga producto del estado no cargue nada, y no se generen errores
@@ -70,7 +70,7 @@ const EditProduct = () => {
                         { alert ? <p className={ `animate__animated animate__headShake ${alert.classes}` }>{ alert.msg }</p> : null }
 
                         <form
-                            onSubmit={ submitEditarProducto }
+                            onSubmit={ submitEditProduct }
                         >
                             <div className="form-group">
                                 <label htmlFor="name">Nombre Producto</label>

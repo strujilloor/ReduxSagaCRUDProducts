@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 
 // REDUX
 import { useDispatch } from 'react-redux'
-import { obtenerProductoEliminar, obtenerProductoEditar } from '../actions/productoActions'
+import { getProductDelete, getProductEdit } from '../actions/productActions'
 
 const Product = ({ product }) => {
 
@@ -14,7 +14,7 @@ const Product = ({ product }) => {
     const history = useHistory(); // habilitar history para redirección 
 
     // Confirmar si desea eliminarlo
-    const confirmarEliminarProducto = ( id ) => {
+    const confirmDeleteProduct = ( id ) => {
         // Preguntar al usuario
         Swal.fire({
             title: '¿Estas seguro?',
@@ -28,15 +28,15 @@ const Product = ({ product }) => {
         }).then((result) => {
             if (result.value) {
                 // Pasarlo al Action
-                dispatch( obtenerProductoEliminar( id ) );
+                dispatch( getProductDelete( id ) );
             }
         });
     }
 
     // Función que redirige de forma programada
-    const redireccionarEdicion = producto => {
-        dispatch( obtenerProductoEditar( producto ) )
-        history.push(`/productos/editar/${ producto.id }`);
+    const redirectEdition = ( product ) => {
+        dispatch( getProductEdit( product ) )
+        history.push(`/productos/editar/${ product.id }`);
     }
 
     return (
@@ -46,14 +46,14 @@ const Product = ({ product }) => {
             <td className="acciones">
                 <button 
                     type="button"
-                    onClick={ () => redireccionarEdicion( product ) }
+                    onClick={ () => redirectEdition( product ) }
                     className="btn btn-primary mr-2">
                     Editar
                 </button>
                 <button
                     type="button"
                     className="btn btn-danger"
-                    onClick={ () => confirmarEliminarProducto( id ) }
+                    onClick={ () => confirmDeleteProduct( id ) }
                 >Eliminar</button>
             </td>
         </tr>
